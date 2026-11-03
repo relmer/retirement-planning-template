@@ -1,0 +1,28 @@
+{
+  "state": "GA",
+  "name": "Georgia",
+  "tax_year": 2025,
+  "sources": [
+    "Georgia DOR, Individual Income Tax: flat rate 5.19% for tax year 2025 (HB 111, 2025), stepping down 0.10 per year toward 4.99%",
+    "Georgia standard deduction $24,000 MFJ / $12,000 single (HB 1437)",
+    "Retirement income exclusion, O.C.G.A. 48-7-27(a)(5): $35,000 per person age 62-64, $65,000 per person 65+; covers pensions, IRA/401(k) distributions, interest, dividends, capital gains, and up to $5,000 of earned income per person",
+    "Social Security benefits are exempt from Georgia income tax"
+  ],
+  "update_instructions": "Verify the rate schedule each year (the legislature has accelerated cuts before). Add a row to brackets for each new year.",
+  "brackets": {
+    "mfj":    {"2025": [[null, 0.0519]], "2026": [[null, 0.0509]], "2027": [[null, 0.0499]]},
+    "single": {"2025": [[null, 0.0519]], "2026": [[null, 0.0509]], "2027": [[null, 0.0499]]}
+  },
+  "standard_deduction": {"mfj": 24000, "single": 12000},
+  "personal_exemption_per_person": 0,
+  "indexed": false,
+  "ss_taxable": false,
+  "retirement_exclusion": {
+    "tiers_by_age": [[62, 35000], [65, 65000]],
+    "eligible_income": ["ira", "pension", "dcp", "gains", "dividends"],
+    "earned_income_cap_per_person": 5000,
+    "indexed": false
+  },
+  "capital_gains": {"mode": "income"},
+  "local_rate": 0.0
+}

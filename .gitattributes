@@ -1,0 +1,6 @@
+* text=auto
+.githooks/* text eol=lf
+*.sh text eol=lf
+*.xlsx binary
+*.png binary
+.template-upstream text eol=lf

@@ -1,0 +1,15 @@
+{
+  "state": "NONE",
+  "name": "No state income tax (AK, FL, NV, NH, SD, TN, TX, WY)",
+  "tax_year": 2025,
+  "sources": ["Use for states with no tax on wages, retirement income, interest, dividends or capital gains. Washington has a capital gains tax: use WA.json."],
+  "update_instructions": "Confirm the state still has no income tax.",
+  "brackets": {"mfj": {"2025": [[null, 0.0]]}, "single": {"2025": [[null, 0.0]]}},
+  "standard_deduction": {"mfj": 0, "single": 0},
+  "personal_exemption_per_person": 0,
+  "indexed": false,
+  "ss_taxable": false,
+  "retirement_exclusion": null,
+  "capital_gains": {"mode": "income"},
+  "local_rate": 0.0
+}

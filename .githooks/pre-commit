@@ -1,0 +1,15 @@
+#!/bin/sh
+# Privacy guard for template maintainers only: a commit in the template repo
+# may contain sample data only. In a personal copy this hook does nothing
+# (personal data belongs in its local history).
+[ "$(git config --bool template.maintainer)" = "true" ] || exit 0
+root=$(git rev-parse --show-toplevel)
+PY="${GUARD_PYTHON:-$(git config --get plan.python)}"
+if [ -z "$PY" ] || ! "$PY" -c "import openpyxl" >/dev/null 2>&1; then
+    PY=""
+    for c in "$root/.venv/Scripts/python.exe" "$root/.venv/bin/python" python3 python py; do
+        if "$c" -c "import openpyxl" >/dev/null 2>&1; then PY="$c"; break; fi
+    done
+fi
+[ -n "$PY" ] || { echo "BLOCKED: no Python with openpyxl found (run python setup_clone.py, or set GUARD_PYTHON)." >&2; exit 1; }
+exec "$PY" "$root/model/tools/guard.py" staged

@@ -1,0 +1,49 @@
+#!/bin/sh
+# Privacy guard (installed by setup_clone.py via core.hooksPath).
+#  - The plan stays in this local repo: every push is blocked unless the remote
+#    was explicitly accepted (setup_clone.py --remote <url> --accept-risks).
+#  - Pushing to the shared template is blocked (maintainers: sample data only).
+#  - Pushing to a PUBLIC GitHub repo is always blocked.
+remote="$1"
+url="$2"
+root=$(git rev-parse --show-toplevel)
+
+PY="${GUARD_PYTHON:-$(git config --get plan.python)}"
+if [ -z "$PY" ] || ! "$PY" -c "import openpyxl" >/dev/null 2>&1; then
+    PY=""
+    for c in "$root/.venv/Scripts/python.exe" "$root/.venv/bin/python" python3 python py; do
+        # the interpreter must run and have openpyxl (a Store stub or bare python does not)
+        if "$c" -c "import openpyxl" >/dev/null 2>&1; then PY="$c"; break; fi
+    done
+fi
+
+# compare lower-case, CR-stripped (GitHub URLs are case-insensitive; Windows checkouts add CRLF)
+lc() { printf '%s' "$1" | tr -d '\r' | tr 'A-Z' 'a-z'; }
+lc_url=$(lc "$url")
+is_template=0
+if [ -f "$root/.template-upstream" ]; then
+    while IFS= read -r pat || [ -n "$pat" ]; do
+        pat=$(lc "$pat")
+        case "$pat" in ""|\#*) continue ;; esac
+        case "$lc_url" in *"$pat"*) is_template=1 ;; esac
+    done < "$root/.template-upstream"
+fi
+
+if [ "$is_template" = 1 ]; then
+    if [ "$(git config --bool template.maintainer)" != "true" ]; then
+        echo "BLOCKED: '$remote' ($url) is the shared template repo. Your plan never goes there." >&2
+        exit 1
+    fi
+    [ -n "$PY" ] || { echo "BLOCKED: no Python with openpyxl found to verify the push contains sample data only." >&2; exit 1; }
+    exec "$PY" "$root/model/tools/guard.py" template-push
+fi
+
+accepted=$(lc "$(git config --get plan.acceptedRemote)")
+if [ -z "$accepted" ] || [ "$accepted" != "$lc_url" ]; then
+    echo "BLOCKED: this plan is kept in this folder only (backed up by OneDrive)." >&2
+    echo "Pushing it to '$remote' ($url) is not recommended; read the risks first:" >&2
+    echo "  python setup_clone.py --remote $url" >&2
+    exit 1
+fi
+[ -n "$PY" ] || { echo "BLOCKED: no Python with openpyxl found to verify '$url' is private." >&2; exit 1; }
+exec "$PY" "$root/model/tools/guard.py" check-private "$url"

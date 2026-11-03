@@ -1,0 +1,37 @@
+{
+  "tax_year": 2025,
+  "sources": [
+    "IRS Rev. Proc. 2024-40 (2025 inflation adjustments)",
+    "P.L. 119-21 (One Big Beautiful Bill Act, July 2025): 2025 standard deduction and the 2025-2028 senior deduction",
+    "SSA: 2025 contribution and benefit base",
+    "CMS: 2025 IRMAA tiers; HHS: 2025 poverty guidelines"
+  ],
+  "update_instructions": "Each year, replace every value with the figures for the CURRENT tax year (IRS Rev. Proc. published each October/November) and set tax_year. The engine indexes these figures by Params.inflation for later years. null = no upper bound.",
+  "ordinary_brackets": {
+    "mfj":    [[23850, 0.10], [96950, 0.12], [206700, 0.22], [394600, 0.24], [501050, 0.32], [751600, 0.35], [null, 0.37]],
+    "single": [[11925, 0.10], [48475, 0.12], [103350, 0.22], [197300, 0.24], [250525, 0.32], [626350, 0.35], [null, 0.37]]
+  },
+  "ltcg_brackets": {
+    "mfj":    [[96700, 0.0], [600050, 0.15], [null, 0.20]],
+    "single": [[48350, 0.0], [533400, 0.15], [null, 0.20]]
+  },
+  "standard_deduction": {"mfj": 31500, "single": 15750},
+  "additional_65_per_person": {"mfj": 1600, "single": 2000},
+  "senior_deduction": {
+    "amount_per_person_65_plus": 6000,
+    "first_year": 2025,
+    "last_year": 2028,
+    "phaseout_magi": {"mfj": 150000, "single": 75000},
+    "phaseout_rate": 0.06,
+    "indexed": false
+  },
+  "niit": {"rate": 0.038, "threshold": {"mfj": 250000, "single": 200000}, "indexed": false},
+  "ss_taxation_thresholds": {"mfj": [32000, 44000], "single": [25000, 34000], "indexed": false},
+  "fica": {
+    "ss_wage_base": 176100, "ss_rate": 0.062,
+    "medicare_rate": 0.0145, "addl_medicare_rate": 0.009,
+    "addl_medicare_threshold": {"mfj": 250000, "single": 200000}
+  },
+  "irmaa_first_tier_magi": {"mfj": 212000, "single": 106000},
+  "aca_400pct_fpl": {"household_1": 62600, "household_2": 84600}
+}

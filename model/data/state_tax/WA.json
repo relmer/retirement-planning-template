@@ -1,0 +1,22 @@
+{
+  "state": "WA",
+  "name": "Washington",
+  "tax_year": 2025,
+  "sources": [
+    "No personal income tax",
+    "Washington capital gains excise tax (RCW 82.87): 7% on long-term gains above the standard deduction ($278,000 for 2025, indexed), plus an additional 2.9% on gains above $1,000,000 (SB 5813, 2025). Retirement accounts and real estate are exempt; dividends and interest are not taxed"
+  ],
+  "update_instructions": "Update the standard deduction (indexed annually by WA DOR) and verify the rate tiers.",
+  "brackets": {"mfj": {"2025": [[null, 0.0]]}, "single": {"2025": [[null, 0.0]]}},
+  "standard_deduction": {"mfj": 0, "single": 0},
+  "personal_exemption_per_person": 0,
+  "indexed": true,
+  "ss_taxable": false,
+  "retirement_exclusion": null,
+  "capital_gains": {
+    "mode": "separate",
+    "include_dividends": false,
+    "brackets": [[278000, 0.0], [1278000, 0.07], [null, 0.099]]
+  },
+  "local_rate": 0.0
+}

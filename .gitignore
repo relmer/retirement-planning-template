@@ -1,0 +1,19 @@
+# Python bytecode / virtual environment
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Excel lock files, created while a workbook is open
+~$*.xlsx
+~$*.xls
+
+# OS / editor / sync noise
+Thumbs.db
+.DS_Store
+desktop.ini
+*.tmp
+
+# private/ (source documents), output/ (results) and Inputs.xlsx are NOT ignored:
+# in a personal copy they belong in the local git history. The hooks installed by
+# setup_clone.py keep them from being pushed anywhere.
