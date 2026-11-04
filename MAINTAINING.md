@@ -6,12 +6,13 @@ For the owner of the shared template repo. People who clone it can ignore this f
 
 Local hooks can be bypassed with `--no-verify`; repository permissions cannot.
 
-- Keep the repo **private**.
-- Add each person as a collaborator with the **Read** role. Read collaborators
-  cannot push branches.
-- Settings → General → turn **off** "Allow forking", so nobody can fork it
-  and open a pull request containing their data.
-- Do not enable Issues or Discussions, or tell people not to post numbers there.
+- The repo is **public** and contains the fictional sample only. Anyone can
+  clone it, and only the owner can push.
+- Do not add collaborators: on a personal account every collaborator can push.
+- Leave Issues, Discussions and the wiki turned off, so nobody posts their
+  numbers there.
+- Close any pull request without merging it. A pull request from a fork can
+  contain someone's plan; request that the author delete the fork.
 
 ## Maintainer clone setup
 
